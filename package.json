@@ -1,0 +1,77 @@
+{
+  "name": "pixamo",
+  "version": "0.1.0",
+  "description": "A dashboard for viewing your Pi-hole stats.",
+  "main": "public/electron.js",
+  "homepage": "./",
+  "scripts": {
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "develop": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "postinstall": "electron-builder install-app-deps",
+    "predist": "yarn build",
+    "dist": "electron-builder",
+    "create-icons": "electron-icon-generator src/assets/icon.png",
+    "copy-icons": "copyfiles -u 2 icons/mac/app.icns assets && copyfiles -u 2 icons/win/app.ico assets && copyfiles -u 2 icons/png/*.png assets",
+    "remove-generated-icons": "rimraf icons",
+    "rename-icons": "node rename.js",
+    "generate-icons": "yarn create-icons && yarn copy-icons && yarn remove-generated-icons && yarn rename-icons"
+  },
+  "repository": "https://github.com/alexlee-dev/pixamo.git",
+  "bugs": {
+    "url": "https://github.com/alexlee-dev/pixamo/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@material-ui/core": "^4.5.2",
+    "@material-ui/icons": "^4.5.1",
+    "electron-is-dev": "^1.1.0",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-scripts": "^3.2.0",
+    "styled-components": "^4.4.1"
+  },
+  "devDependencies": {
+    "@rescripts/cli": "^0.0.13",
+    "@rescripts/rescript-env": "^0.0.11",
+    "concurrently": "^5.0.0",
+    "copyfiles": "^2.1.1",
+    "electron": "^7.0.0",
+    "electron-builder": "^22.1.0",
+    "electron-icon-generator": "^1.0.2",
+    "rimraf": "^3.0.0",
+    "wait-on": "^3.3.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "author": {
+    "name": "Alex Lee",
+    "email": "alex@alexlee.dev",
+    "url": "https://www.alexlee.dev"
+  },
+  "build": {
+    "appId": "com.alexlee.pixamo",
+    "productName": "pixamo",
+    "copyright": "Copyright © 2019 ${author}",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  }
+}
